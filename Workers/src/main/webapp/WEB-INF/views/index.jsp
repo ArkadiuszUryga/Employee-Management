@@ -73,9 +73,7 @@
 					
 
                         </div>  
-                        <a id="btn-login" href="user_logged/admin" class="btn btn-primary btn-sm">Admin  </a>  
-                        <a id="btn-login" href="user_logged/kadry" class="btn btn-primary btn-sm">Kadry  </a>  
-                        <a id="btn-login" href="user_logged/user" class="btn btn-primary btn-sm">Pracownik  </a>               
+                            
                     </div>  
         </div>
         

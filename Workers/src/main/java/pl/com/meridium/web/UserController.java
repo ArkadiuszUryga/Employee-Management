@@ -157,14 +157,17 @@ public class UserController {
 	
 	@RequestMapping(value = "/user/add", method = RequestMethod.POST)	
 		public String userValidate2(@Validated({Default.class})  User user, BindingResult result, Model model) {
+		DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 		
 		if (result.hasErrors()) {
 			return "add_user";
 		}
 
 		else {
+						
 			userRepository.save(user);
-			model.addAttribute("user", user);
+			
+			
 			return "redirect:/user_logged";
 		}
 		
@@ -186,17 +189,16 @@ public class UserController {
 	@RequestMapping(value = "/user/add2", method = RequestMethod.POST)	
 		public String userValidate3(@ModelAttribute User2 user2, Model model, HttpSession ses) {
 		
-			
-
+		
 			User user=(User) ses.getAttribute("userLogged");
 			
 			long userId=user2.getId();
-		
+			
 			
 			userRepository.save(user);
 			//user2Repository.save(user2);
-			
 			return "redirect:/user_logged";
+			
 		
 		
 	}

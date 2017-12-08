@@ -120,7 +120,7 @@
 									</select>
                                     </div>
                                 </div>
-                                    
+                                  
                                 <div class="form-group">
                                     <label for="defaultHour" class="col-md-3 control-label">Dzienna norma pracy:</label>
                                     <div class="col-md-9">
@@ -132,6 +132,7 @@
                                 <div class="form-group">
                                     <!-- Button -->                                        
                                     <div class="col-md-offset-3 col-md-9">
+                                    <form:errors path="*"></form:errors>  
                                         <input type="submit" class="btn btn-success" value="Załóż konto">
                                         <span style="margin:8px;">or</span> 
                                         <a href="<c:url value = "/user_logged/admin/"/>" class="btn btn-primary">Wróć</a> 

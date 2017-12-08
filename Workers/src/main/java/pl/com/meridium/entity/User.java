@@ -66,9 +66,9 @@ public class User {
 	
 	private int ranga;
 	
-	private Date umowa;
+	private String umowa;
 	
-	private Date badania;
+	private String badania;
 	
 	private int wymiar_urlopu;
 	
@@ -86,19 +86,19 @@ public class User {
 		this.password = password;
 	}
 	
-	public Date getUmowa() {
+	public String getUmowa() {
 		return umowa;
 	}
 
-	public void setUmowa(Date umowa) {
+	public void setUmowa(String umowa) {
 		this.umowa = umowa;
 	}
 
-	public Date getBadania() {
+	public String getBadania() {
 		return badania;
 	}
 
-	public void setBadania(Date badania) {
+	public void setBadania(String badania) {
 		this.badania = badania;
 	}
 
