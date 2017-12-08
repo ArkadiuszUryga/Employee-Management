@@ -51,51 +51,42 @@
 
 
 				<c:set var="userL" scope="session" value="${userLogged}" />
-				<c:set var="now" scope="session" value="${now}" />
-				<c:set var="messageF" scope="session" value="${messageF}" />
+				<c:set var="message" scope="session" value="${result}" />
+
 
 
 
 				<c:if test="${userLogged.ranga == 1}">
-					<div class="modal-dialog">
+					<div class="modal-dialog" style="width:600px; height:600px;">
 						<div class="modal-content">
 							<div class="modal-body">
-								<div class="text-center">
-									<h4>Wyślij wiadomość</h4>
-									<h3>
-										<c:out value="${messageF}" />
-									</h3>
-									<form method="post" class="form-horizontal" role="form">
-										<div class="form-group">
-											<input type="text" name="messageTitle" placeholder="Tytuł"
-												class="form-control">
-											<textarea rows="4" cols="50" name="message"
-												class="form-control" placeholder="Treść" /></textarea>
-										</div>
-
-
-										<input type="hidden" name="firstName"
-											value="${userLogged.firstName}"> <input type="hidden"
-											name="secondName" value="${userLogged.secondName}"> <input
-											type="hidden" name="status" value="1"> <input
-											type="submit" class="btn btn-primary"
-											value="Wyślij wiadomość">
-									</form>
+								<div class="text-left">
+									<h4>
+										<c:out value="${message.messageTitle}" />
+									</h4>
+								
+									
+										Z dnia
+										<fmt:formatDate pattern="yyyy-MM-dd"
+														value="${message.added}" />
+									<fieldset>
+										<c:out value="${message.message}" />
+									</fieldset>
+									</div>
+									<div class="text-right">
+									<h4>Odpowiedź</h4>
+									<p>
+										Z dnia
+										<fmt:formatDate pattern="yyyy-MM-dd"
+														value="${message.forWhen}" /><br>
+									
+										<c:out value="${message.answer}" />
+									</p>
+									
 								</div>
 							</div>
 						</div>
 					</div>
-
 				</c:if>
-
-				<script>
-					document.addEventListener("DOMContentLoaded", function(
-							event) {
-						$('#ala').css("background-color", "yellow");
-						$('#my-calendar').multiDatesPicker(
-
-						);
-					});
-				</script>
 </body>
 </html>

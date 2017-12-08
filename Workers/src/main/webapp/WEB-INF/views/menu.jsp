@@ -16,12 +16,12 @@
                             </a>
                           </li>
                           <li>
-                            <a href="message">
+                            <a href="<c:url value = "/message"/>">
                               Wyślij wiadomość
                             </a>
                           </li>
                           <li>
-                            <a href="messages">
+                            <a href="<c:url value = "/messages"/>">
                               Twoje wiadomości
                             </a>
                           </li>

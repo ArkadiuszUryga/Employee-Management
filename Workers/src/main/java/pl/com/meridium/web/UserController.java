@@ -17,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -289,6 +290,15 @@ public class UserController {
 		List<Messages> result = messagesRepository.findAll();
 		model.addAttribute("result", result);
 		return "messages";
+	}
+	
+	@RequestMapping("/message/{id}/")
+	public String messageOne(@PathVariable int id, Model model, HttpSession ses) {
+		User userLogged=(User) ses.getAttribute("userLogged");
+		Messages message=messagesRepository.findOne((long) id);
+		
+		model.addAttribute("result", message);
+		return "one_message";
 	}
 	
 

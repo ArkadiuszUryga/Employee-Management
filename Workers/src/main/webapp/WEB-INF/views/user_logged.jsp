@@ -4,9 +4,9 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ page isELIgnored="false"%>
-<%@ page import="java.util.Calendar" %>
-<%@ page import="java.util.List" %>
-<%@ page import="pl.com.meridium.entity.Dates" %>
+<%@ page import="java.util.Calendar"%>
+<%@ page import="java.util.List"%>
+<%@ page import="pl.com.meridium.entity.Dates"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -41,14 +41,16 @@
 					<p class="no-margin">
 						Witaj <strong> <c:out value="${userLogged.firstName}" />
 							<c:out value="${userLogged.secondName}" />
-						</strong><br><br>
-						&nbsp;&nbsp;Umowa do:<strong> <fmt:formatDate pattern="yyyy-MM-dd"
-						value="${user2Logged.umowa}" /></strong><br>
+						</strong><br>
+						<br> &nbsp;&nbsp;Umowa do:<strong> <fmt:formatDate
+								pattern="yyyy-MM-dd" value="${user2Logged.umowa}" /></strong><br>
 						&nbsp;&nbsp;Następne badania okresowe: <strong> <fmt:formatDate
-						pattern="yyyy-MM-dd" value="${user2Logged.badania}" /></strong><br>
-		 &nbsp;&nbsp;Dzienny wymiar pracy: <strong><c:out
-						value="${user2Logged.defaultHour}" /> </strong>godzin<br>
-		 &nbsp;&nbsp;pozostały urlop:<strong> <c:out value="${userLogged.urlop}" /> </strong>dni
+								pattern="yyyy-MM-dd" value="${user2Logged.badania}" /></strong><br>
+						&nbsp;&nbsp;Dzienny wymiar pracy: <strong><c:out
+								value="${user2Logged.defaultHour}" /> </strong>godzin<br>
+						&nbsp;&nbsp;pozostały urlop:<strong> <c:out
+								value="${userLogged.urlop}" />
+						</strong>dni
 
 					</p>
 				</div>
@@ -71,16 +73,28 @@
 				</c:if>
 				<c:if test="${userLogged.ranga == 1}">
 
-					 
-		 
-		
-		 
-		
-		<form method="post">
-						<div id="dates"></div>
-						<input type="text" name='dates' id='altField' /><br> <input
-							type="submit" value="Wyślij" />
-					</form>
+					
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-body">
+									<div class="text-center">
+										
+										<h4>Twój miesięczny plan pracy</h4>
+										<p>Możesz go edytować i wysłać do zaakceptowania</p>
+
+										<form method="post">
+										<center>
+											<div id="dates" ></div>
+										</center>
+											<input type="text" name='dates' id='altField' class="m-3" /><br> 
+											<input
+												type="submit" class="m-3" value="Wyślij" />
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+					
 
 				</c:if>
 
@@ -93,14 +107,12 @@
 				dateFormat: "yy-m-d",
 				<c:if test="${dates.size() > 0}">
 					addDates: [
-						<%
-						   Calendar cal = Calendar.getInstance();
-						    List<Dates> dates = (List<Dates>)request.getAttribute("dates");
-						    for(Dates dt : dates){
-						        cal.setTime(dt.getDate());
-						        out.print("date.setDate("+cal.get(Calendar.DAY_OF_MONTH)+"), ");
-						    }
-						%>
+						<%Calendar cal = Calendar.getInstance();
+				List<Dates> dates = (List<Dates>) request.getAttribute("dates");
+				for (Dates dt : dates) {
+					cal.setTime(dt.getDate());
+					out.print("date.setDate(" + cal.get(Calendar.DAY_OF_MONTH) + "), ");
+				}%>
 					]
 				</c:if>
 			});
