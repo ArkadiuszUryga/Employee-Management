@@ -66,9 +66,9 @@ public class User {
 	
 	private int ranga;
 	
-	private String umowa;
+	private Date umowa;
 	
-	private String badania;
+	private Date badania;
 	
 	private int wymiar_urlopu;
 	
@@ -76,7 +76,17 @@ public class User {
 	
 	private int defaultHour;
 	
+	private int hoursFromLastMonth;
+	
 
+
+	public int getHoursFromLastMonth() {
+		return hoursFromLastMonth;
+	}
+
+	public void setHoursFromLastMonth(int hoursFromLastMonth) {
+		this.hoursFromLastMonth = hoursFromLastMonth;
+	}
 
 	public String getPassword() {
 		return password;
@@ -86,19 +96,19 @@ public class User {
 		this.password = password;
 	}
 	
-	public String getUmowa() {
+	public Date getUmowa() {
 		return umowa;
 	}
 
-	public void setUmowa(String umowa) {
+	public void setUmowa(Date umowa) {
 		this.umowa = umowa;
 	}
 
-	public String getBadania() {
+	public Date getBadania() {
 		return badania;
 	}
 
-	public void setBadania(String badania) {
+	public void setBadania(Date badania) {
 		this.badania = badania;
 	}
 

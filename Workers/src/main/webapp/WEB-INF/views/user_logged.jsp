@@ -41,13 +41,11 @@
 					<p class="no-margin">
 						Witaj <strong> <c:out value="${userLogged.firstName}" />
 							<c:out value="${userLogged.secondName}" />
-						</strong><br>
-						<br> &nbsp;&nbsp;Umowa do:<strong> <fmt:formatDate
-								pattern="yyyy-MM-dd" value="${user2Logged.umowa}" /></strong><br>
+						</strong><br> <br> &nbsp;&nbsp;Umowa do:<strong> <fmt:formatDate pattern="yyyy-MM-dd" value="${userLogged.umowa}" /></strong><br>
 						&nbsp;&nbsp;Następne badania okresowe: <strong> <fmt:formatDate
-								pattern="yyyy-MM-dd" value="${user2Logged.badania}" /></strong><br>
+								pattern="yyyy-MM-dd" value="${userLogged.badania}" /></strong><br>
 						&nbsp;&nbsp;Dzienny wymiar pracy: <strong><c:out
-								value="${user2Logged.defaultHour}" /> </strong>godzin<br>
+								value="${userLogged.defaultHour}" /> </strong>godzin<br>
 						&nbsp;&nbsp;pozostały urlop:<strong> <c:out
 								value="${userLogged.urlop}" />
 						</strong>dni
@@ -57,44 +55,97 @@
 				<%@ include file="/WEB-INF/views/menu.jsp"%>
 
 				<c:set var="userL" scope="session" value="${userLogged}" />
+				<c:set var="hours" scope="session" value="${userL.defaultHour}"/>
 
 
 				<c:if test="${userLogged.ranga == 3}">
 					<a href="<c:url value = "/user/add/"/>"
 						class="btn btn-primary btn-lg btn-block">Dodaj użytkownika </a>
-					<button type="button" class="btn btn-primary btn-lg btn-block">Albo
+					<a href="<c:url value = "/users/"/>" class="btn btn-primary btn-lg btn-block">Albo
 						usuń, jeśli masz taką chęć</button>
 				</c:if>
 
 				<c:if test="${userLogged.ranga == 2}">
-					<c:set var="umowa" value="${user2Logged.umowa}" />
-					<c:set var="badania" value="${user2Logged.badania}" />
+					<div class="modal-dialog1">
+						<div class="modal-content1">
+							<div class="modal-body">
+								<div class="text-center">
+
+									<h4>Lista pracowników</h4>
+									<table class="table table-sm table-secondary">
+										<tr class="table-secondary">
+											<th>Imię</th>
+											<th>Nazwisko</th>
+											
+											<th>etat</th>
+											<th>Wymiar urlopu</th>
+											<th>Pozostały urlop</th>
+											<th>Umowa do:</th>
+											<th>Badania do:</th>
+											<th>Szczegóły</th>
+											<th>Wyślij wiadomość</th>
+										</tr>
+										<c:forEach items="${workers}" var="worker">
+											<tr>
+												<td><c:out value="${worker.firstName}" /></td>
+												<td><c:out value="${worker.secondName}" /></td>
+												<c:set var="etat" scope="session" value="${12/worker.etat}" />
+												
+												<td>1/<fmt:formatNumber type = "number" maxIntegerDigits = "1" value = "${etat}" /></td>
+												<td><c:out value="${worker.wymiar_urlopu}" /></td>
+												<td><c:out value="${worker.urlop}" /></td>
+												<td><fmt:formatDate pattern="yyyy-MM-dd"
+														value="${worker.umowa}" /></td>
+												<td><fmt:formatDate pattern="yyyy-MM-dd"
+														value="${worker.badania}" /></td>
+														<td><a	href="<c:url value = "/worker/${worker.id}/"/>">Szczegóły</a></td>
+														<td><a	href="<c:url value = "/send_message/${worker.id}/"/>">Wiadomość</a></td>
+											</tr>
+										</c:forEach>
+									</table>
+
+									
+								</div>
+							</div>
+						</div>
+					</div>
 
 				</c:if>
 				<c:if test="${userLogged.ranga == 1}">
 
-					
-						<div class="modal-dialog">
-							<div class="modal-content">
-								<div class="modal-body">
-									<div class="text-center">
-										
-										<h4>Twój miesięczny plan pracy</h4>
-										<p>Możesz go edytować i wysłać do zaakceptowania</p>
 
-										<form method="post">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-body">
+								<div class="text-center">
+
+									<h4>Twój miesięczny plan pracy</h4>
+									<p>Następny miesiąc to: <c:out value="${m}" />
+									dni w następnym m-cu: <c:out value="${lastDay}" />
+									w tym roboczych: <c:out value="${workDaysCounter}" />, co daje 
+									
+									
+									<c:out value="${monthHours}" /> godzin do przepracowania.<br>
+									Z zeszłego miesiąca zostało Ci <c:out value="${hoursFromLastMonth}" /> godzin, czyli faktycznie do przepracowania
+									jest <c:out value="${finalHours}" /> godzin. <br>
+									Musisz zaznaczyć w następnym m-cu <c:out value="${days}" /> dni, a na kolejny zostanie <c:out value="${hoursForNextMonth}" /> godzin. 
+									
+									
+									
+									</p>
+
+									<form method="post">
 										<center>
-											<div id="dates" ></div>
+											<div id="dates"></div>
 										</center>
-											<input type="text" name='dates' id='altField' class="m-3" /><br> 
-											<input
-												type="submit" class="m-3" value="Wyślij" />
-										</form>
-									</div>
+										<input type="text" name='dates' id='altField' class="m-3" /><br>
+										<input type="submit" class="m-3" value="Wyślij" />
+									</form>
 								</div>
 							</div>
 						</div>
-					
+					</div>
+
 
 				</c:if>
 
@@ -115,6 +166,7 @@
 				}%>
 					]
 				</c:if>
+				
 			});
 		});
 	</script>

@@ -30,13 +30,16 @@ body {
     width: 200px; 
     height: 200px; 
 }
-.modal-dialog1 {
+.modal-static,
+.modal-static .modal-dialog1,
+.modal-static .modal-content1 {
     width: 600px; 
     height: 600px; 
 }
 
 .modal-static .modal-dialog,
-.modal-static .modal-content {
+.modal-static .modal-content 
+.modal-static .modal-dialog1{
     padding: 0 !important; 
     margin: 0 !important;
 }

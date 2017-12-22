@@ -51,82 +51,39 @@
 
 
 				<c:set var="userL" scope="session" value="${userLogged}" />
-				<c:set var="now" scope="session" value="${now}" />
-				<c:set var="messageF" scope="session" value="${messageF}" />
+				<c:set var="result" scope="session" value="${result}" />
 
 
 
-				<c:if test="${userLogged.ranga == 1}">
+				
 					<div class="modal-dialog">
 						<div class="modal-content">
 							<div class="modal-body">
 								<div class="text-center">
-									<h4>Wyślij wiadomość</h4>
-									<h3>
-										<c:out value="${messageF}" />
-									</h3>
-									<form method="post" class="form-horizontal" role="form">
-										<div class="form-group">
-											<input type="text" name="messageTitle" placeholder="Tytuł"
-												class="form-control">
-											<textarea rows="4" cols="50" name="message"
-												class="form-control" placeholder="Treść" /></textarea>
-										</div>
+									<h4>Lista pracowników</h4>
 
-
-										<input type="hidden" name="firstName"
-											value="${userLogged.firstName}"> <input type="hidden"
-											name="secondName" value="${userLogged.secondName}"> <input
-											type="hidden" name="status" value="1"> <input
-											type="submit" class="btn btn-primary"
-											value="Wyślij wiadomość">
-									</form>
-								</div>
-							</div>
-						</div>
-					</div>
-
-				</c:if>
-				<c:if test="${userLogged.ranga == 2}">
-					<div class="modal-dialog">
-						<div class="modal-content">
-							<div class="modal-body">
-								<div class="text-center">
-									<h4>Wyślij wiadomość do nast. użytkowników:</h4>
-									<c:forEach items="${workersForMessage}" var="worker">
-										
-												<c:out value="${worker.firstName}" /> <c:out value="${worker.secondName}" /><br>
+									<table class="table table-sm table-secondary">
+										<tr class="table-secondary">
+											<th>Imię</th>
+											<th>Nazwisko</th>
+											<th>Edytuj</th>
+											<th>Usuń</th>
+										</tr>
+										<c:forEach items="${workers}" var="worker">
+											<tr
+												class="table-secondary">
+												<td><c:out value="${worker.firstName}" /></td>
+												<td><c:out value="${worker.secondName}" /></td>
+												<td><a	href="<c:url value = "user/add/${worker.id}/"/>">Edytuj</a></td>
+												<td></td>
+											</tr>
 										</c:forEach>
-									
+									</table>
 								</div>
 							</div>
 						</div>
 					</div>
 
-				</c:if>
-				<c:if test="${userLogged.ranga == 3}">
-					<div class="modal-dialog">
-						<div class="modal-content">
-							<div class="modal-body">
-								<div class="text-center">
-									<h4>Możesz tylko dodawać, usuwać, edytować użytkowników</h4>
-									<h4>Jeśli chcesz wysłać wiadomość, zaloguj się jako administrator danych</h4>
-									
-								</div>
-							</div>
-						</div>
-					</div>
-
-				</c:if>
-
-				<script>
-					document.addEventListener("DOMContentLoaded", function(
-							event) {
-						$('#ala').css("background-color", "yellow");
-						$('#my-calendar').multiDatesPicker(
-
-						);
-					});
-				</script>
+				
 </body>
 </html>

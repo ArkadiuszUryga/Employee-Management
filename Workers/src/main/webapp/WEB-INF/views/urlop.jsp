@@ -79,9 +79,9 @@
 							Proszę o udzielenie mi urlopu
 							<c:out value="${rodzaj}" />
 							w okresie od dnia
-							<strong><c:out value="${firstDate}" /></strong>
+							<strong><c:out value="${firstDate1}" /></strong>
 							do dnia
-							<strong><c:out value="${secondDate}" /></strong>
+							<strong><c:out value="${secondDate1}" /></strong> co daje w sumie liczbę dni: <c:out value="${liczbaDniUrlopu}" />
 						</p>
 
 					</c:if>

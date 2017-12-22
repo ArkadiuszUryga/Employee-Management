@@ -46,57 +46,25 @@
 					</p>
 				</div>
 				<%@ include file="/WEB-INF/views/menu.jsp"%>
-
-
-
-
-				<c:set var="userL" scope="session" value="${userLogged}" />
-				<c:set var="now" scope="session" value="${now}" />
-				<c:set var="messageF" scope="session" value="${messageF}" />
-
-
-
-				<c:if test="${userLogged.ranga == 1}">
-					<div class="modal-dialog">
-						<div class="modal-content">
-							<div class="modal-body">
-								<div class="text-center">
-									<h4>Wyślij wiadomość</h4>
-									<h3>
-										<c:out value="${messageF}" />
-									</h3>
-									<form method="post" class="form-horizontal" role="form">
-										<div class="form-group">
-											<input type="text" name="messageTitle" placeholder="Tytuł"
-												class="form-control">
-											<textarea rows="4" cols="50" name="message"
-												class="form-control" placeholder="Treść" /></textarea>
-										</div>
-
-
-										<input type="hidden" name="firstName"
-											value="${userLogged.firstName}"> <input type="hidden"
-											name="secondName" value="${userLogged.secondName}"> <input
-											type="hidden" name="status" value="1"> <input
-											type="submit" class="btn btn-primary"
-											value="Wyślij wiadomość">
-									</form>
-								</div>
-							</div>
-						</div>
-					</div>
-
-				</c:if>
 				<c:if test="${userLogged.ranga == 2}">
+				<c:set var="etat" scope="session" value="${12/toView.etat}" />
 					<div class="modal-dialog">
 						<div class="modal-content">
 							<div class="modal-body">
 								<div class="text-center">
-									<h4>Wyślij wiadomość do nast. użytkowników:</h4>
-									<c:forEach items="${workersForMessage}" var="worker">
-										
-												<c:out value="${worker.firstName}" /> <c:out value="${worker.secondName}" /><br>
-										</c:forEach>
+									<h4><c:out value="${toView.firstName}" /> <c:out value="${toView.secondName}" /></h4>
+									<p>
+										wymiar etatu: <strong>1/<fmt:formatNumber type = "number" maxIntegerDigits = "1" value = "${etat}" /></strong><br>
+										umowa do: <strong><fmt:formatDate pattern="yyyy-MM-dd"
+														value="${toView.umowa}" /></strong><br>
+										następne badania: <strong><fmt:formatDate pattern="yyyy-MM-dd"
+														value="${toView.badania}" /></strong><br>
+										wymiar urlopu: <strong><c:out value="${toView.wymiar_urlopu}" />
+										<c:if test="${toView.opieka == 1}">
+											+2
+										</c:if>
+										</strong>
+									</p>
 									
 								</div>
 							</div>
@@ -104,29 +72,8 @@
 					</div>
 
 				</c:if>
-				<c:if test="${userLogged.ranga == 3}">
-					<div class="modal-dialog">
-						<div class="modal-content">
-							<div class="modal-body">
-								<div class="text-center">
-									<h4>Możesz tylko dodawać, usuwać, edytować użytkowników</h4>
-									<h4>Jeśli chcesz wysłać wiadomość, zaloguj się jako administrator danych</h4>
-									
-								</div>
-							</div>
-						</div>
-					</div>
+				
 
-				</c:if>
-
-				<script>
-					document.addEventListener("DOMContentLoaded", function(
-							event) {
-						$('#ala').css("background-color", "yellow");
-						$('#my-calendar').multiDatesPicker(
-
-						);
-					});
-				</script>
+				
 </body>
 </html>
