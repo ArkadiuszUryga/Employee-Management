@@ -55,28 +55,27 @@
 
 
 
-				<c:if test="${userLogged.ranga == 1}">
+				
 					<div class="modal-dialog">
 						<div class="modal-content">
 							<div class="modal-body">
 								<div class="text-center">
-									<h4>Twoje wiadomości</h4>
+									<h4>Lista pracowników</h4>
 
 									<table class="table table-sm table-secondary">
 										<tr class="table-secondary">
-											<th>Temat</th>
-											<th>Z dnia</th>
-											<th>Rozwiązane dnia:</th>
+											<th>Imię</th>
+											<th>Nazwisko</th>
+											<th>Edytuj</th>
+											<th>Usuń</th>
 										</tr>
-										<c:forEach items="${result}" var="results">
+										<c:forEach items="${workers}" var="worker">
 											<tr
-												class="<c:if test = "${results.status == 1}">table-secondary</c:if><c:if test = "${results.status == 2}">table-success</c:if>">
-												<td><a
-													href="<c:url value = "/message/${results.id}/"/>">${results.messageTitle}</a></td>
-												<td><fmt:formatDate pattern="yyyy-MM-dd"
-														value="${results.added}" /></td>
-												<td><c:if test = "${results.status == 2}"><fmt:formatDate pattern="yyyy-MM-dd"
-														value="${results.forWhen}" /></c:if></td>
+												class="table-secondary">
+												<td><c:out value="${worker.firstName}" /></td>
+												<td><c:out value="${worker.secondName}" /></td>
+												<td><a	href="<c:url value = "user/add/${worker.id}/"/>">Edytuj</a></td>
+												<td></td>
 											</tr>
 										</c:forEach>
 									</table>
@@ -85,38 +84,6 @@
 						</div>
 					</div>
 
-				</c:if>
-				<c:if test="${userLogged.ranga == 2}">
-					<div class="modal-dialog">
-						<div class="modal-content">
-							<div class="modal-body">
-								<div class="text-center">
-									<h4>Twoje wiadomości</h4>
-									<table class="table table-sm table-secondary">
-										<tr class="table-secondary">
-											<th>Temat</th>
-											<th>Z dnia</th>
-											<th>Nadawca</th>
-										</tr>
-										<c:if test="${thisMonth.size() > 0}">
-											<tr
-												class="table-secondary">
-												<td colspan="2"><a	href="<c:url value = "/plan1/"/>">Plan na bieżący miesiąc oczekuje na zaakceptowanie</a></td>
-												<td></td>
-												</tr>
-										</c:if>
-										<c:if test="${nextMonth.size() > 0}">
-											<tr
-												class="table-secondary">
-												<td colspan="2"><a	href="<c:url value = "/plan2/"/>">Plan na następny miesiąc oczekuje na zaakceptowanie</a></td>
-												<td></td>
-												</tr>
-										</c:if>
-										
-								</div>
-							</div>
-						</div>
-					</div>
-				</c:if>
+				
 </body>
 </html>

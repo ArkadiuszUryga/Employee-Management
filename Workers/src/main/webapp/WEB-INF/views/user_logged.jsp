@@ -156,16 +156,32 @@
 				altField: '#altField',
 				beforeShowDay: $.datepicker.noWeekends,
 				dateFormat: "yy-m-d",
+				
 				<c:if test="${dates.size() > 0}">
 					addDates: [
 						<%Calendar cal = Calendar.getInstance();
 				List<Dates> dates = (List<Dates>) request.getAttribute("dates");
+				
 				for (Dates dt : dates) {
 					cal.setTime(dt.getDate());
 					out.print("date.setDate(" + cal.get(Calendar.DAY_OF_MONTH) + "), ");
+					
 				}%>
-					]
+					],
+					
 				</c:if>
+				<c:set var="picks" scope="session" value="${days}" />
+				<%
+				
+				List<Dates> dates = (List<Dates>) request.getAttribute("dates");
+				for (Dates dt : dates) {
+					%>
+					<c:set var="picks" scope="session" value="${picks+1}" />
+				<%	
+				}
+				%>
+				
+			maxPicks : <c:out value="${picks}" />
 				
 			});
 		});

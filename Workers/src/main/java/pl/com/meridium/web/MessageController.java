@@ -2,6 +2,7 @@ package pl.com.meridium.web;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -15,9 +16,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import pl.com.meridium.entity.Dates;
 import pl.com.meridium.entity.Messages;
 import pl.com.meridium.entity.User;
 import pl.com.meridium.entity.User2;
+import pl.com.meridium.repository.DateRepository;
 import pl.com.meridium.repository.MessagesRepository;
 import pl.com.meridium.repository.UserRepository;
 
@@ -28,6 +31,8 @@ public class MessageController {
 	private MessagesRepository messagesRepository;
 	@Autowired
 	private UserRepository userRepository;
+	@Autowired
+	private DateRepository dateRepository;
 	
 	@RequestMapping(value ="/message", method = RequestMethod.GET)
 	public String message(Model model, HttpSession ses) {
@@ -71,6 +76,24 @@ public class MessageController {
 	public String messages(Model model, HttpSession ses) {
 		User userLogged=(User) ses.getAttribute("userLogged");
 		List<Messages> result = messagesRepository.findAll();
+		Date nowDate = new Date();
+		Calendar c = Calendar.getInstance();
+	    c.setTime(nowDate);
+	    c.set(Calendar.DATE, c.getMinimum(Calendar.DATE));
+	    Date firstDayThisMonth = c.getTime();
+	    c.set(Calendar.DATE, c.getMaximum(Calendar.DATE));
+	    Date lastDayThisMonth = c.getTime();
+	    List<Dates> thisMonth = dateRepository.findByDateBetweenAndStatus1(firstDayThisMonth, lastDayThisMonth, 1);
+	    
+	    c.add(Calendar.MONTH, 1);
+	    c.set(Calendar.DATE, c.getMinimum(Calendar.DATE));
+	    Date firstDayNextMonth = c.getTime();
+	    c.set(Calendar.DATE, c.getMaximum(Calendar.DATE));
+	    Date lastDayNextMonth = c.getTime();
+	    List<Dates> nextMonth = dateRepository.findByDateBetweenAndStatus1(firstDayNextMonth, lastDayNextMonth, 1);
+	    
+	    model.addAttribute("thisMonth", thisMonth);
+	    model.addAttribute("nextMonth", nextMonth);
 		model.addAttribute("result", result);
 		return "messages";
 	}
