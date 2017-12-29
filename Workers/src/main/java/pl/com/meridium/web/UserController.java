@@ -5,7 +5,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -51,9 +50,6 @@ public class UserController {
 	
 	@Autowired
 	GradeRepository gradeRepository;
-	
-	@Autowired
-	private MessagesRepository messagesRepository;
 	
 	@Autowired
 	private DateRepository dateRepository;
@@ -183,9 +179,7 @@ public class UserController {
 	    model.addAttribute("lastDay", lastDay);
 	    model.addAttribute("m", m);
 	    
-	    String monthToFind="-";
-	    monthToFind+=n;
-	    monthToFind+="-";
+
 	    List<Holidays>	holidayDates = holidaysRepository.findAll();
 	    int holidayDayCounter=0;
 		for	(Holidays holidays : holidayDates)	{
@@ -238,12 +232,7 @@ public class UserController {
 	@ModelAttribute("dates")
 
 	private List<Dates> getDates(){
-//		List<Date> result = new ArrayList<>();
-//		List<Dates> dates = dateRepository.findAll();
-		// konwersja Dates na Date
-//		for (Dates d: dates) {
-//			result.add(d.getDate());
-//		}
+
 		 
 		 
 		Calendar calendar = Calendar.getInstance();         
@@ -254,8 +243,6 @@ public class UserController {
 		Date thistMonthLastDay = calendar.getTime();
 		
 		List<Dates> result = dateRepository.findByDateBetweenParam1AndParam2(thisMonthFirstDay, thistMonthLastDay);
-		//List<Dates> result = dateRepository.findAll();
-
 		
 		return result;
 
@@ -311,55 +298,14 @@ public class UserController {
 		return "calendar";
 	}
 	
-	@RequestMapping(value = "/wniosek_urlopowy", method = RequestMethod.GET)
-	public String vacation(Model model, HttpSession ses) {
-		User userLogged=(User) ses.getAttribute("userLogged");
-		User2 user2Logged=(User2) ses.getAttribute("user2Logged");
-		
-		return "urlop";
-	}
 	
-	@RequestMapping(value = "/wniosek_urlopowy", method = RequestMethod.POST)
-	public String vacationa(Model model, HttpSession ses, @RequestParam String dates, @RequestParam String rodzaj) throws ParseException {
-		User userLogged=(User) ses.getAttribute("userLogged");
-		String [] vacationDates=dates.split(",");
-		String firstDate1=vacationDates[0];
-		String secondDate1=vacationDates[1];
-		DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-		Date firstDate = formatter.parse(vacationDates[0]);
-		Date secondDate = formatter.parse(vacationDates[1]);
-		Calendar c1 = Calendar.getInstance();
-		c1.setTime(firstDate);
-		Calendar c2 = Calendar.getInstance();
-		c2.setTime(secondDate);
-		
-		
-		long differenceInMillis = c2.getTimeInMillis() - c1.getTimeInMillis();
-		long liczbaMSwDobie = 1000 * 60 * 60 * 24;
-		long liczbaDniUrlopu = differenceInMillis/liczbaMSwDobie;
-		
-		
-		int send=1;
-		model.addAttribute("firstDate1", firstDate1);
-		model.addAttribute("secondDate1", secondDate1);
-		model.addAttribute("send",send);
-		model.addAttribute("rodzaj",rodzaj);
-		model.addAttribute("liczbaDniUrlopu",liczbaDniUrlopu);
-		Date d = new Date();
-		model.addAttribute("now", d);
-		
-		
-		return "urlop";
-	}
 	
 	
 	
 	
 	@RequestMapping("/menu")
 	public String menu(Model model, HttpSession ses) {
-		User userLogged=(User) ses.getAttribute("userLogged");
-		
-		
+	
 		return "menu";
 	}
 	

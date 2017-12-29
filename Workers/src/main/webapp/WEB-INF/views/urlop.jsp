@@ -81,7 +81,8 @@
 							w okresie od dnia
 							<strong><c:out value="${firstDate1}" /></strong>
 							do dnia
-							<strong><c:out value="${secondDate1}" /></strong> co daje w sumie liczbę dni: <c:out value="${liczbaDniUrlopu}" />
+							<strong><c:out value="${secondDate1}" /></strong> co daje w sumie liczbę dni: <c:out value="${liczbaDniUrlopu}" /> w tym
+							<c:out value="${workDaysCounter}" /> dni roboczych
 						</p>
 
 					</c:if>
