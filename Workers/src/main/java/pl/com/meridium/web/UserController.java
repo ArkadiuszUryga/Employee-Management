@@ -63,8 +63,8 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String userLogin() {
-		
+	public String userLogin(HttpSession ses) {
+		ses.invalidate();
 		return "index";
 	}
 
@@ -101,14 +101,19 @@ public class UserController {
 	public String calendar(Model model, HttpSession ses) {
 		
 		
-		Date nowDate = new Date();
+		SimpleDateFormat  dateFormat = new SimpleDateFormat("yyyy, MM, dd");
 		Calendar c = Calendar.getInstance();
-	    c.setTime(nowDate);
-	    c.add(Calendar.MONTH, 1);
-	    c.set(Calendar.DATE, c.getMaximum(Calendar.DATE));
-	    Date nextDate = c.getTime();
-	    int lastDay = nextDate.getDate();
-	    int nextMonth = nextDate.getMonth();
+	    //c.set(2017, 11, 30);
+	    c.add(Calendar.MONTH, 2);
+	    c.set(Calendar.DAY_OF_MONTH, c.getMinimum(Calendar.DAY_OF_MONTH));
+	    c.add(Calendar.DAY_OF_MONTH, -1);
+	    String timeString = dateFormat.format(c.getTime());
+	    System.out.println(timeString);
+	    
+	    int nextMonth = c.get(Calendar.MONTH);
+	    int lastDay = c.get(Calendar.DATE);
+	    System.out.println("miesiąc: "+nextMonth+" lastday: "+lastDay);
+	   
 	    String m;
 	    String n;
 	    switch (nextMonth) {

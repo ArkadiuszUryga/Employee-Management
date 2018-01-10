@@ -45,7 +45,10 @@ body {
 }
 .modal-static .modal-content .icon {
 }
-
+.dottedUnderline { border-bottom: 1px dotted; }
+.big	{
+	font-size:25px;
+}
 
 
 

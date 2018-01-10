@@ -57,81 +57,17 @@
 
 
 				<c:if test="${userLogged.ranga == 1}">
-
-
-
-					<c:if test="${send == 1}">
 					<div class="modal-dialog">
 							<div class="modal-content">
 								<div class="modal-body">
-									<div class="text-right">
-									<p>
-							Pszczyna dnia:
-							<fmt:formatDate pattern="yyyy-MM-dd" value="${now}" />
-						</p>
-						</div>
-						<div class="text-left">
-										<c:out value="${userLogged.firstName}" />
-							<c:out value="${userLogged.secondName}" />
-						
-						<h4>Wniosek urlopowy</h4>
-						<p>
-							Proszę o udzielenie mi urlopu
-							 
-							w okresie od dnia
-							<strong><c:out value="${firstDate1}" /></strong>
-							do dnia
-							<strong><c:out value="${secondDate1}" /></strong> co daje w sumie liczbę dni: <c:out value="${liczbaDniUrlopu}" /> w tym
-							<c:out value="${workDaysCounter}" /> dni roboczych
-						</p>
-						<p>
-						[&nbsp;<a href="<c:url value = "/urlop/zatwierdz/"/>" >Zatwierdź wniosek</a>&nbsp;|&nbsp;
-						<a href="<c:url value = "/wniosek_urlopowy/"/>" >Powrót</a>&nbsp;]
-						</p>
-
-					</c:if>
-					<c:if test="${send != 1}">
-						<div class="modal-dialog">
-							<div class="modal-content">
-								<div class="modal-body">
-									<div class="text-center">
-										<h4>Wniosek urlopowy</h4>
-										<p>Wybierz datę początkową i końcową urlopu, jego rodzaj i
-											wyślij formularz</p>
-										<form method="post">
-											<center>
-												<div id="dates"></div>
-											</center>
-											<input type="text" name='dates' id='altField' class="m-2" /><br>
-
-											<label for="rodzaj" class="col-md-6 control-label">Rodzaj
-												urlopu</label> <select name="rodzaj"
-												class="col-md-12 form-control m-2">
-
-												<option value="wypoczynkowego">Wypoczynkowy</option>
-												<option value="bezpłatnego">Bezpłatny</option>
-												<option value="z tytułu opieki nad dzieckiem">Opieka nad dzieckiem</option>
-												<option value="okolicznościowego">Okolicznościowy</option>
-											</select> <input type="submit" value="Wyślij" class="m-2" />
-										</form>
-									</div>
-								</div>
+					<h4>Wniosek został wysłany do rozpatrzenia</h4>
+					<a href="<c:url value = "/urlop/drukuj/"/>" target="_blank" >Wydrukuj wniosek</a>
+					
+											</div>
 							</div>
 						</div>
-					</c:if>
 				</c:if>
 
-				<script>
-					document.addEventListener("DOMContentLoaded", function(
-							event) {
-						var date = new Date();
-						$('#dates').multiDatesPicker({
-							altField : '#altField',
-							maxPicks : 2,
-							dateFormat : "yy-m-d"
-
-						});
-					});
-				</script>
+	
 </body>
 </html>

@@ -55,11 +55,14 @@ public class VacationController {
 		
 		
 		int send=1;
-		model.addAttribute("firstDate1", firstDate1);
-		model.addAttribute("secondDate1", secondDate1);
-		model.addAttribute("send",send);
-		model.addAttribute("rodzaj",rodzaj);
-		model.addAttribute("liczbaDniUrlopu",liczbaDniUrlopu);
+		ses.setAttribute("firstDate1", firstDate1);
+		ses.setAttribute("secondDate1", secondDate1);
+		ses.setAttribute("firstDate", firstDate);
+		ses.setAttribute("secondDate", secondDate);
+		ses.setAttribute("send",send);
+		ses.setAttribute("rodzaj",rodzaj);
+		ses.setAttribute("liczbaDniUrlopu",liczbaDniUrlopu);
+
 		Date d = new Date();
 		model.addAttribute("now", d);
 		
@@ -93,9 +96,31 @@ public class VacationController {
 			
 		}
 		workDaysCounter++;
-		model.addAttribute("workDaysCounter",workDaysCounter);
+		ses.setAttribute("workDaysCounter",workDaysCounter);
 		   
 		//end of adding dates from form to list. It will need to calculate count of working days
 		return "urlop";
+		/*
+		 * dodać przycisk zatwierdzenie lub powrotu. 
+		 * przed zatwierdzeniem urlopu zapisuje się on w tabeli vacations ze statusem 0. Pozostałe statusy w encji vacations
+		 * po zatwierdzeniu status zmienia się na 1, a w widoku wyświetla się możliwość wydruku wniosku
+		 * w tabeli messages zapisuje się wiadomość - urlop do zatwierdzenia z linkiem do strony, która pobierze kto chce urlop, jaki i w jakim terminie
+		 * kadrowy będzie mógł go zatwierdzić lub odrzucić. zatwierdzenie odejmie dni od puli urlopowej o ile urlop jest wypoczynkowy lub opieka
+		 * odrzucenie zmieni status na 3 - trzeba będzie podać powód (np. nie mogę ci dać urlopu 2 maja, bo planuję cię zwolnić 30 kwietnia)
+		 * jak zaznaczyłem nd i pon to mi wyliczyło 2 dni, w tym 2 dni robocze
+		 * jak zaznaczyłem tylko 1 dzień, to wywala błąd
+		 */
+	}
+	
+	@RequestMapping("/urlop/zatwierdz")
+	public String zatwierdzUrlop(Model model, HttpSession ses) {
+	
+		return "zatwierdz_urlop";
+	}
+	
+	@RequestMapping("/urlop/drukuj")
+	public String drukujUrlop(Model model, HttpSession ses) {
+
+		return "drukuj_urlop";
 	}
 }
