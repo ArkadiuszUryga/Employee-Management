@@ -4,6 +4,9 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ page isELIgnored="false"%>
+<%@ page import="java.util.Calendar"%>
+<%@ page import="java.util.List"%>
+<%@ page import="pl.com.meridium.entity.Dates"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -55,35 +58,50 @@
 
 
 
-				
+					<c:if test="${userLogged.ranga == 2}">
 					<div class="modal-dialog">
 						<div class="modal-content">
 							<div class="modal-body">
-								<div class="text-center">
-									<h4>Lista pracowników</h4>
-
-									<table class="table table-sm table-secondary">
-										<tr class="table-secondary">
-											<th>Imię</th>
-											<th>Nazwisko</th>
-											<th>Edytuj</th>
-											<th>Usuń</th>
-										</tr>
-										<c:forEach items="${workers}" var="worker">
-											<tr
-												class="table-secondary">
-												<td><c:out value="${worker.firstName}" /></td>
-												<td><c:out value="${worker.secondName}" /></td>
-												<td><a	href="<c:url value = "user/add/${worker.id}/"/>">Edytuj</a></td>
-												<td></td>
-											</tr>
-										</c:forEach>
-									</table>
-								</div>
+							<div class="text-center">
+								<h4>Plan miesięczny pracownika</h4>
+								<ul>
+								<li>Możesz zaakceptować plan, w takim wypadku nie zmieniaj niczego w zaznaczonych datach</li>
+								<li>Możesz go odrzucić, zmodyfikuj kalendarz tak, aby widoczne były tylko te daty, kiedy pracownik MUSI  być w pracy</li>
+								</ul>
+								<form method="post">
+										<center>
+											<div id="dates"></div>
+										</center>
+										<input type="text" name='dates' id='altField' class="m-3" /><br>
+										<input type="submit" class="m-3" value="Wyślij" />
+								</form>		
+								
+							</div>
 							</div>
 						</div>
 					</div>
-
+					</c:if>
+<script>
+		document.addEventListener("DOMContentLoaded", function(event) {
+			var date = new Date();
+			$('#dates').multiDatesPicker({
+				altField: '#altField',
+				beforeShowDay: $.datepicker.noWeekends,
+				dateFormat: "yy-m-d",
+				addDates: [
+					<%Calendar cal = Calendar.getInstance();
+			List<Dates> dates = (List<Dates>) request.getAttribute("dates");
+			
+			for (Dates dt : dates) {
+				cal.setTime(dt.getDate());
+				out.print("date.setDate(" + cal.get(Calendar.DAY_OF_MONTH) + "), ");
+				
+			}%>
+				]
+				
+			});
+		});
+	</script>
 				
 </body>
 </html>

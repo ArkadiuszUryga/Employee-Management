@@ -29,6 +29,9 @@ import pl.com.meridium.entity.Messages;
 import pl.com.meridium.entity.User;
 import pl.com.meridium.entity.User2;
 import pl.com.meridium.other.Callendar;
+import pl.com.meridium.other.MonthsInDigits;
+import pl.com.meridium.other.MonthsInPolish;
+import pl.com.meridium.other.WorkdaysCounter;
 import pl.com.meridium.other.WorkersList;
 import pl.com.meridium.repository.DateRepository;
 import pl.com.meridium.repository.GradeRepository;
@@ -114,72 +117,11 @@ public class UserController {
 	    int lastDay = c.get(Calendar.DATE);
 	    System.out.println("miesiąc: "+nextMonth+" lastday: "+lastDay);
 	   
-	    String m;
-	    String n;
-	    switch (nextMonth) {
-	    case 0:
-	    	m="Styczeń";
-	    	n="01";
-	    	break;
-	    case 1:
-	    	m="Luty";
-	    	n="02";
-	    	break;
-	    case 2:
-	    	m="Marzec";
-	    	n="03";
-	    	break;
-	    case 3:
-	    	m="Kwiecień";
-	    	n="04";
-	    	break;
-	    case 4:
-	    	m="Maj";
-	    	n="05";
-	    	break;
-	    case 5:
-	    	m="Czerwiec";
-	    	n="06";
-	    	break;
-	    case 6:
-	    	m="Lipiec";
-	    	n="07";
-	    	break;
-	    case 7:
-	    	m="Sierpień";
-	    	n="08";
-	    	break;
-	    case 8:
-	    	m="Wrzesień";
-	    	n="09";
-	    	break;
-	    case 9:
-	    	m="Październik";
-	    	n="10";
-	    	break;
-	    case 10:
-	    	m="Listopad";
-	    	n="11";
-	    	break;
-	    case 11:
-	    	m="Grudzień";
-	    	n="12";
-	    	break;
-	    	default:
-	    		m="Miesiąc nie istnieje";
-	    		n="00";
-		    	break;	
-	    	
-	    }
-	    int workDaysCounter=0;
-	    for (int i=1;i<=lastDay;i++) {
-	    	
-	    	c.set(c.YEAR, c.MONTH, i);
-	    	int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
-	    	if (dayOfWeek<6) {
-	    		workDaysCounter++;
-	    	}
-	    }
+	    String m=MonthsInPolish.MonthInPolish(nextMonth);
+	    String n=MonthsInDigits.MonthInDigits(nextMonth);
+	
+	    int workDaysCounter=WorkdaysCounter.WorkDayCounter(1);
+	    
 
 	    model.addAttribute("lastDay", lastDay);
 	    model.addAttribute("m", m);
@@ -283,11 +225,14 @@ public class UserController {
 					datesToBase.setDate(date);
 					datesToBase.setStatus(1);
 					dateRepository.save(datesToBase);
+					
 				}
 				
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
+			
+		
 		}
 		
 		return "redirect:/user_logged";

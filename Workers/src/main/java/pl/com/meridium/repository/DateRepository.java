@@ -29,5 +29,10 @@ public interface DateRepository extends JpaRepository<Dates, Long> {
 	
 	@Query(value = "select * from dates where date between :date1 and :date2 and status=:status", nativeQuery = true)
 	List<Dates> findByDateBetweenAndStatus1(@Param("date1") Date date1, @Param("date2") Date date2, @Param("status") int status);
+	
+	@Modifying
+	@Transactional
+	@Query(value = "UPDATE dates SET status=:status2 where date between :date1 and :date2 and status=:status", nativeQuery = true)
+	public void changeStatusToTwo(@Param("date1") Date date1, @Param("date2") Date date2, @Param("status") int status, @Param("status2") int status2);
 
 }

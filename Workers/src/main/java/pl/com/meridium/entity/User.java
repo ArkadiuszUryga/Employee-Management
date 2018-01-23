@@ -78,7 +78,17 @@ public class User {
 	
 	private int hoursFromLastMonth;
 	
+	private int hoursForNextMonth;
+	
+	
 
+	public int getHoursForNextMonth() {
+		return hoursForNextMonth;
+	}
+
+	public void setHoursForNextMonth(int hoursForNextMonth) {
+		this.hoursForNextMonth = hoursForNextMonth;
+	}
 
 	public int getHoursFromLastMonth() {
 		return hoursFromLastMonth;
