@@ -49,7 +49,10 @@ body {
 .big	{
 	font-size:25px;
 }
-
+.my-small-btn {
+    min-width:140px;
+    padding:5px;
+}
 
 
 

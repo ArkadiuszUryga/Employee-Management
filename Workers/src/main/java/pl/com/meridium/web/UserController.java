@@ -110,8 +110,9 @@ public class UserController {
 	    c.add(Calendar.MONTH, 2);
 	    c.set(Calendar.DAY_OF_MONTH, c.getMinimum(Calendar.DAY_OF_MONTH));
 	    c.add(Calendar.DAY_OF_MONTH, -1);
+	   
 	    String timeString = dateFormat.format(c.getTime());
-	    System.out.println(timeString);
+	    
 	    
 	    int nextMonth = c.get(Calendar.MONTH);
 	    int lastDay = c.get(Calendar.DATE);
@@ -163,6 +164,18 @@ public class UserController {
 		model.addAttribute("hoursFromLastMonth", hoursFromLastMonth);
 		model.addAttribute("days", days);
 		
+		/////////////////////////////////////////////////////
+		//sprawdzam czy są daty ze statudem 1 w przyszłym miesiącu
+		// jeżeli tak to znaczy, że plan na następny m-c jest wysłany i trzeba wyświetlić odpowiednią informację
+		//////////////////////////////////////////////////////////////
+		Date date1=Callendar.firstDayInNextMonth();
+		Date date2=Callendar.lastDayInNextMonth();
+		List<Dates> datesWithStatus1 = dateRepository.findByDateBetweenAndStatus1(date1, date2, 1);
+		boolean isPlanSended=true;
+		if (datesWithStatus1.isEmpty())	{
+			isPlanSended=false;
+		}
+		model.addAttribute("isPlanSended", isPlanSended);
 		///////////////////////////////////////////////////////////////////////
 		// user ranga=2
 		////////////////////////////////////////////////////////////////////////
@@ -226,8 +239,12 @@ public class UserController {
 					datesToBase.setStatus(1);
 					dateRepository.save(datesToBase);
 					
+					
 				}
+				User userLogged= (User) ses.getAttribute("userLogged");
 				
+				long id=userLogged.getId();
+				dateRepository.changeUserId(thisMonthLastDay, firstDayForTwoMonths, 1, id);		
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}

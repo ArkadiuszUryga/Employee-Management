@@ -120,6 +120,10 @@
 								<div class="text-center">
 
 									<h4>Twój miesięczny plan pracy</h4>
+									<c:if test="${isPlanSended == true}">
+										<p>Plan na następny miesiąc został wysłany i oczekuje na zatwierdzenie</p>
+									</c:if>
+									<c:if test="${isPlanSended == false}">
 									<p>Następny miesiąc to: <c:out value="${m}" />
 									dni w następnym m-cu: <c:out value="${lastDay}" />
 									w tym roboczych: <c:out value="${workDaysCounter}" />, co daje 
@@ -133,7 +137,7 @@
 									
 									
 									</p>
-
+									</c:if>
 									<form method="post">
 										<center>
 											<div id="dates"></div>

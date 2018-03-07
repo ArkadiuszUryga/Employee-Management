@@ -30,9 +30,12 @@ public class WorkdaysCounter {
 	    	
 	    	c.set(c.YEAR, c.MONTH, i);
 	    	int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
+	    	//int dayOfMonth=c.get(Calendar.DATE);
+	    	//int numberOfMonth=c.get(Calendar.MONTH);
 	    	if (dayOfWeek<6) {
 	    		workDaysCounter++;
 	    	}
+	    	//System.out.println("Dzień tygodnia: "+dayOfWeek+" Dzień miesiąca: "+dayOfMonth+" Miesiąc: "+numberOfMonth+" Licznik: "+workDaysCounter);
 	    }
 	    
 

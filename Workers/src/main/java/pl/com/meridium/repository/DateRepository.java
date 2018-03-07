@@ -34,5 +34,10 @@ public interface DateRepository extends JpaRepository<Dates, Long> {
 	@Transactional
 	@Query(value = "UPDATE dates SET status=:status2 where date between :date1 and :date2 and status=:status", nativeQuery = true)
 	public void changeStatusToTwo(@Param("date1") Date date1, @Param("date2") Date date2, @Param("status") int status, @Param("status2") int status2);
+	
+	@Modifying
+	@Transactional
+	@Query(value = "UPDATE dates SET user_id=:user_id where date between :date1 and :date2 and status=:status", nativeQuery = true)
+	public void changeUserId(@Param("date1") Date date1, @Param("date2") Date date2, @Param("status") int status, @Param("user_id") long user_id);
 
 }

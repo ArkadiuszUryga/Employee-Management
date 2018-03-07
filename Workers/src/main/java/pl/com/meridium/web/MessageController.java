@@ -60,8 +60,8 @@ public class MessageController {
 		messages.setForWhen(d);
 		messages.setMessage(message);
 		messages.setStatus(statu);
-		messages.setFirstName(firstName);
-		messages.setSecondName(secondName);
+		//messages.setFirstName(firstName);
+		//messages.setSecondName(secondName);
 		messages.setMessageTitle(messageTitle);
 		messages.setAnswer(null);
 		
@@ -81,7 +81,9 @@ public class MessageController {
 	    c.setTime(nowDate);
 	    c.set(Calendar.DATE, c.getMinimum(Calendar.DATE));
 	    Date firstDayThisMonth = c.getTime();
-	    c.set(Calendar.DATE, c.getMaximum(Calendar.DATE));
+	    c.add(Calendar.MONTH, 1);
+	    c.set(Calendar.DATE, c.getMinimum(Calendar.DATE));
+	    c.add(Calendar.DATE, -1);
 	    Date lastDayThisMonth = c.getTime();
 	    List<Dates> thisMonth = dateRepository.findByDateBetweenAndStatus1(firstDayThisMonth, lastDayThisMonth, 1);
 	    

@@ -1,6 +1,8 @@
 package pl.com.meridium.entity;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -28,16 +31,35 @@ public class Messages {
 	@Column(columnDefinition="text")
 	private String answer;
 	
-	private String firstName;
-	private String secondName;
-	
 	private int status;
 	
 	private Date added;
 	
 	private Date forWhen;
 	
+	@ManyToMany
+	private List<User> sender = new ArrayList<>();
 	
+	@ManyToMany
+	private List<User> receiver = new ArrayList<>();
+	
+	
+	public List<User> getSender() {
+		return sender;
+	}
+
+	public void setSender(List<User> sender) {
+		this.sender = sender;
+	}
+
+	public List<User> getReceiver() {
+		return receiver;
+	}
+
+	public void setReceiver(List<User> receiver) {
+		this.receiver = receiver;
+	}
+
 	public String getMessageTitle() {
 		return messageTitle;
 	}
@@ -55,21 +77,7 @@ public class Messages {
 		this.answer = answer;
 	}
 
-	public String getFirstName() {
-		return firstName;
-	}
-
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	public String getSecondName() {
-		return secondName;
-	}
-
-	public void setSecondName(String secondName) {
-		this.secondName = secondName;
-	}
+	
 
 	
 

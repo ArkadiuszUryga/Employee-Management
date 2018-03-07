@@ -65,20 +65,10 @@
 							<div class="text-center">
 								<h4>Plan miesięczny pracownika</h4>
 								<ul>
-								<li>Możesz zaakceptować plan, w takim wypadku nie zmieniaj niczego w zaznaczonych datach</li>
-								<li>Możesz go odrzucić, zmodyfikuj kalendarz tak, aby widoczne były tylko te daty, kiedy pracownik MUSI  być w pracy</li>
+								<li>Plan został zaakceptowany</li>
+								<li>Wiadomość do pracownika została wysłana</li>
 								</ul>
-								<form method="post">
-										<center>
-											<div id="dates"></div>
-										</center>
-										<input type="text" name='dates' id='altField' class="m-3" /><br>
-										
-										
-										<input type="submit" class="btn btn-danger" value="Nie akceptuję">
-										<a href="accepted" class="btn btn-success" role="button">Akceptuję</a>
-								</form>		
-									
+								
 								
 							</div>
 							</div>
